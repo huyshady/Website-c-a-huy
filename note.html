@@ -6,7 +6,6 @@
     <title>Ghi chú</title>
 
     <style>
-        /* Loại bỏ viền ngoài toàn màn hình */
         html {
             height: 100vh;
             box-sizing: border-box;
@@ -40,19 +39,18 @@
             text-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
             font-size: 2.5rem;
             margin-bottom: 20px;
-            z-index: 10; /* Đảm bảo chữ nằm trên sao băng */
+            z-index: 10; /* Chữ tiêu đề nằm trên cùng */
         }
 
-        /* Khung ghi chú tích hợp viền cầu vồng chuyển động bên ngoài */
+        /* Khung ghi chú (Lớp viền cầu vồng nằm dưới sao băng) */
         .note {
             max-width: 800px;
             width: 85%;
             position: relative;
-            z-index: 10; /* Giúp toàn bộ hộp ghi chú nằm đè lên sao băng */
-            border-radius: 16px; /* Bo tròn góc */
-            padding: 4px; /* Độ dày của viền cầu vồng (4px) */
+            z-index: 4; /* Nằm dưới sao băng (z-index: 5) */
+            border-radius: 16px; 
+            padding: 4px; /* Độ dày của viền cầu vồng */
             
-            /* Tạo hiệu ứng nền cầu vồng chuyển động cho viền */
             background: linear-gradient(
                 45deg, 
                 #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55
@@ -62,12 +60,14 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
 
-        /* Lớp nền kính mờ bên trong hộp ghi chú để chứa chữ */
+        /* Lớp nội dung chứa chữ (Nằm TRÊN CÙNG để đè lên sao băng) */
         .note-content {
-            background: rgba(20, 10, 5, 0.85); /* Nền tối để đọc chữ rõ hơn trên nền cam */
+            position: relative;
+            z-index: 10; /* Cao nhất, đè lên sao băng (z-index: 5) để chữ không bị che khuất */
+            background: rgba(20, 10, 5, 0.88); /* Nền tối mịn màng giúp đọc chữ rất rõ */
             backdrop-filter: blur(15px);
             padding: 20px;
-            border-radius: 12px; /* Bo góc trong nhỏ hơn viền ngoài một chút để cân đối */
+            border-radius: 12px; 
             color: white;
         }
 
@@ -91,7 +91,7 @@
             pointer-events: none;
             animation: twinkleSnow 1.5s infinite alternate ease-in-out;
             text-shadow: 0 0 5px #fff, 0 0 10px #ff9500;
-            z-index: 1; /* Nằm dưới hộp ghi chú */
+            z-index: 1; /* Nằm dưới cùng */
         }
 
         @keyframes twinkleSnow {
@@ -99,7 +99,7 @@
             100% { opacity: 1; transform: scale(1.4) rotate(45deg); }
         }
 
-        /* Khung chứa sao băng nằm ở lớp dưới */
+        /* Khung chứa sao băng nằm ở lớp giữa */
         #shooting-stars-container {
             position: absolute;
             top: 0;
@@ -107,10 +107,10 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1; /* Đặt lớp dưới (nhỏ hơn z-index: 10 của ghi chú) */
+            z-index: 5; /* Nằm giữa viền ghi chú (4) và chữ ghi chú (10) */
         }
 
-        /* Đầu sáng bên trái, đuôi mờ bên phải và góc nghiêng phù hợp */
+        /* Thân sao băng */
         .shooting-star {
             position: absolute;
             width: 120px;
@@ -166,7 +166,7 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ tối ưu giúp phủ kín toàn bộ các góc màn hình, kể cả góc dưới bên phải
+            // Tọa độ ngẫu nhiên phủ kín màn hình
             const startX = Math.random() * (window.innerWidth * 1.6) - (window.innerWidth * 0.2);
             const startY = Math.random() * (window.innerHeight * 0.8) - 120;
             
@@ -183,7 +183,7 @@
             }, duration * 1000);
         }
 
-        // Tần suất xuất hiện dày dặn, mượt mà khắp màn hình (400ms tạo 1 sao)
+        // Tần suất xuất hiện dày dặn (400ms tạo 1 sao)
         setInterval(createShootingStar, 400);
     </script>
 
