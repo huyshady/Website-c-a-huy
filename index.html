@@ -6,14 +6,45 @@
 <title>Website của huy</title>
 <style>
 body{
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-text-align:center;
-padding:40px;
+    margin:0;
+    overflow:hidden;
+    color:white;
+    background:linear-gradient(
+    -45deg, 
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #8b00ff,
+    #ff1493
+    );
+
+    background-size:800% 800%;
+    animation:rainbow 15s ease infinite;
 }
+
+@keyframes rainbow{
+
+0%{
+    background-position:0% 50%;
+}
+
+50%{
+    background-position:100% 50%;
+}
+
+100%{
+    background-position:0% 50%;
+}
+
+}
+
 h1{
-color:#007AFF;
+    color:#007AFF;
 }
+
 button{
 padding:12px 20px;
 border:none;
@@ -22,9 +53,55 @@ color:white;
 border-radius:8px;
 font-size:16px;
 }
-</style>
+</.star{
+    position:fixed;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{
+        opacity:0.2;
+        transform:scale(0.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.4);
+    }
+}
+
+.shooting-star{
+    position:fixed;
+    width:150px;
+    height:2px;
+    background:linear-gradient(to right,white,transparent);
+    transform:rotate(-35deg);
+    animation:shoot 4s linear infinite;
+}
+
+@keyframes shoot{
+    0%{
+        left:-200px;
+        top:0;
+    }
+
+    100%{
+        left:120%;
+        top:70%;
+    }
+}>
 </head>
 <body>
+<div class="star" style="top:10%;left:15%;"></div>
+<div class="star" style="top:20%;left:70%;"></div>
+<div class="star" style="top:40%;left:30%;"></div>
+<div class="star" style="top:60%;left:85%;"></div>
+<div class="star" style="top:80%;left:50%;"></div>
+
+<div class="shooting-star"></div>
 
 <h1>Xin chào!!</h1>
 
