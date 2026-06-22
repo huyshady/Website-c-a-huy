@@ -102,26 +102,25 @@
             pointer-events: none;
         }
 
-        /* SỬA CHUẨN: Đầu sáng (bên phải), đuôi mờ (bên trái) vuốt chéo nghiêng 135 độ */
+        /* KHẮC PHỤC TRIỆT ĐỂ: Tạo khối vuông chéo sẵn, vẽ gradient từ góc trên phải xuống góc dưới trái */
         .shooting-star {
             position: absolute;
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
-            transform: rotate(135deg); 
-            transform-origin: right center; /* Tâm quay đặt ở đầu ngôi sao */
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,1) 100%);
+            clip-path: polygon(100% 100%, 0 0, 5% 0, 100% 95%); /* Ép tạo thành 1 vệt kim chéo cố định */
             opacity: 0;
-            animation: shootCorrect linear forwards;
+            animation: lightDownLeft linear forwards;
         }
 
-        @keyframes shootCorrect {
+        @keyframes lightDownLeft {
             0% {
-                transform: translateX(0) rotate(135deg);
+                transform: translate(0, 0);
                 opacity: 1;
             }
             100% {
-                /* Chỉ tịnh tiến theo trục X sau khi đã xoay, sao sẽ lao chéo thẳng tắp */
-                transform: translateX(-1000px) rotate(135deg);
+                /* Trượt thẳng một mạch từ trên phải xuống dưới trái */
+                transform: translate(-600px, 600px);
                 opacity: 0;
             }
         }
@@ -153,14 +152,14 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ xuất phát: Tập trung nửa trên bên phải màn hình để bay chéo xuống góc dưới bên trái
-            const startX = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.3);
-            const startY = Math.random() * (window.innerHeight * 0.4) - 50;
+            // Tọa độ xuất phát rải rác đều từ bên phải và phía trên màn hình
+            const startX = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.2);
+            const startY = Math.random() * (window.innerHeight * 0.5) - 80;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Thời gian bay nhẹ nhàng thơ mộng (1.5s - 2.5s)
+            // Tốc độ bay rơi nhẹ nhàng thanh thoát (1.5 giây - 2.5 giây)
             const duration = Math.random() * 1.0 + 1.5; 
             star.style.animationDuration = `${duration}s`;
             
@@ -171,7 +170,7 @@
             }, duration * 1000);
         }
 
-        // Tần suất xuất hiện cực kì dày đặc (mỗi 0.15 giây tạo 1 sao mới)
+        // TẦN SUẤT SIÊU DÀY ĐẶC: 0.15 giây (150ms) tạo 1 sao băng giúp rơi rải rác ngập màn hình
         setInterval(createShootingStar, 150);
 
         function checkKey() {
