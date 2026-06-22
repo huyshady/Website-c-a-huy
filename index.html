@@ -25,7 +25,7 @@
             /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
             
-            /* Căn giữa nội dung */
+            /* Căn giữa nội dung văn bản và nút bấm */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -80,7 +80,7 @@
             box-shadow: 0 6px 20px rgba(255, 149, 0, 0.6);
         }
 
-        /* Bông tuyết lấp lánh */
+        /* Bông tuyết lấp lánh nền */
         .snowflake {
             position: absolute;
             color: #ffffff;
@@ -105,26 +105,25 @@
             pointer-events: none;
         }
 
-        /* 🛠️ ĐÃ SỬA: Đổi sang `to left` để phần đuôi mờ nằm bên trái, đầu sáng đi trước bên phải */
+        /* 🛠️ ĐIỀU CHỈNH: Đầu sáng bên trái, đuôi mờ bên phải và góc nghiêng phù hợp */
         .shooting-star {
             position: absolute;
-            width: 150px;
+            width: 120px;
             height: 2px;
-            background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
+            background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
             transform: rotate(-45deg); 
-            transform-origin: left center;
             opacity: 0;
-            animation: shootUp 1.2s linear forwards;
+            animation: shootDownLeft linear forwards;
         }
 
-        @keyframes shootUp {
+        @keyframes shootDownLeft {
             0% {
                 transform: translate(0, 0) rotate(-45deg);
                 opacity: 1;
             }
             100% {
-                /* Bay tịnh tiến chéo lên góc phải 45 độ xuôi theo chiều vệt sáng */
-                transform: translate(600px, -600px) rotate(-45deg);
+                /* 🛠️ ĐIỀU CHỈNH: Tiến về âm X (sang trái) và dương Y (xuống dưới) -> Bay từ trên phải xuống dưới trái */
+                transform: translate(-800px, 800px) rotate(-45deg);
                 opacity: 0;
             }
         }
@@ -156,14 +155,16 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ xuất phát ngẫu nhiên ở góc dưới và bên trái màn hình để vuốt chéo lên
-            const startX = Math.random() * window.innerWidth * 0.5 - 50;
-            const startY = Math.random() * window.innerHeight * 0.5 + (window.innerHeight * 0.4);
+            // 🛠️ TỐI ƯU: Trải rộng tọa độ xuất phát ngẫu nhiên ở vùng trên và vùng bên phải màn hình
+            // Giúp sao băng phân bổ rải rác đều khắp màn hình, không bị tụ lại một chỗ
+            const startX = Math.random() * (window.innerWidth * 0.9) + (window.innerWidth * 0.2);
+            const startY = Math.random() * (window.innerHeight * 0.5) - 120;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            const duration = Math.random() * 0.4 + 0.8; // Tốc độ bay nhanh mượt (0.8s - 1.2s)
+            // 🛠️ TỐI ƯU: Tăng thời gian bay (2.0s - 3.5s) để chuyển động bay nhẹ nhàng và thơ mộng hơn
+            const duration = Math.random() * 1.5 + 2.0; 
             star.style.animationDuration = `${duration}s`;
             
             container.appendChild(star);
@@ -173,8 +174,8 @@
             }, duration * 1000);
         }
 
-        // Tần suất tạo sao băng dày đặc (0.4 giây/sao)
-        setInterval(createShootingStar, 400);
+        // Tần suất xuất hiện đồng thời nhiều sao rải rác (khoảng 0.5 giây tạo 1 sao)
+        setInterval(createShootingStar, 500);
 
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
