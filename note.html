@@ -14,15 +14,14 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 40px 20px; /* Thêm khoảng cách đệm trên dưới khi cuộn */
+            padding: 40px 20px;
             overflow-x: hidden;
-            overflow-y: auto; /* Cho phép cuộn trang khi có nhiều khung ghi chú */
+            overflow-y: auto; /* Cho phép cuộn trang mượt mà khi có nhiều khung */
             color: white;
             /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
-            background-attachment: fixed; /* Giữ cố định nền khi cuộn */
+            background-attachment: fixed;
             
-            /* Căn giữa và xếp dọc các khung ghi chú */
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -41,20 +40,20 @@
             color: #ffffff;
             text-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
             font-size: 2.5rem;
-            margin-bottom: 30px;
-            z-index: 10; /* Chữ tiêu đề nằm trên cùng */
+            margin-bottom: 35px;
+            z-index: 10;
         }
 
-        /* Khung ghi chú với ĐƯỜNG VIỀN 7 MÀU sắc nét chạy dọc xung quanh */
+        /* Từng khung ghi chú riêng biệt với viền 7 màu sắc nét ôm sát dọc theo hộp */
         .note {
             max-width: 800px;
             width: 85%;
             position: relative;
-            z-index: 4; /* Nằm dưới sao băng (z-index: 5) */
+            z-index: 4; /* Thấp hơn sao băng một chút để hiệu ứng cắt qua viền */
             border-radius: 16px; 
-            margin-bottom: 30px; /* Khoảng cách giữa khung 1 và khung 2 */
+            margin-bottom: 35px; /* Tạo khoảng cách tách biệt hoàn toàn giữa các khung */
             
-            /* Tạo đường viền 7 màu mảnh và sắc nét chạy dọc theo khung */
+            /* Tạo đường viền mảnh 7 màu tinh tế bao quanh */
             border: 4px solid transparent;
             background-image: 
                 linear-gradient(rgba(20, 10, 5, 0.88), rgba(20, 10, 5, 0.88)), 
@@ -67,10 +66,10 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
 
-        /* Lớp nội dung chứa chữ (Nằm TRÊN CÙNG để đè lên sao băng) */
+        /* Lớp chứa chữ nằm trên cùng để sao băng không đè lên chữ */
         .note-content {
             position: relative;
-            z-index: 10; /* Cao nhất, đè lên sao băng để chữ không bị che khuất */
+            z-index: 10; /* Lớp cao nhất, nằm đè lên sao băng (z-index: 5) */
             padding: 20px;
             border-radius: 12px; 
             color: white;
@@ -89,16 +88,16 @@
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* Bông tuyết lấp lánh nền */
+        /* Hiệu ứng tuyết rơi lấp lánh ở nền */
         .snowflake {
-            position: fixed; /* Đổi thành fixed để bông tuyết đứng yên ở nền khi cuộn trang */
+            position: fixed;
             color: #ffffff;
             font-size: 10px;
             user-select: none;
             pointer-events: none;
             animation: twinkleSnow 1.5s infinite alternate ease-in-out;
             text-shadow: 0 0 5px #fff, 0 0 10px #ff9500;
-            z-index: 1; /* Nằm dưới cùng */
+            z-index: 1;
         }
 
         @keyframes twinkleSnow {
@@ -106,18 +105,17 @@
             100% { opacity: 1; transform: scale(1.4) rotate(45deg); }
         }
 
-        /* Khung chứa sao băng nằm ở lớp giữa */
+        /* Lớp chứa sao băng ở giữa viền và chữ */
         #shooting-stars-container {
-            position: fixed; /* Đổi thành fixed để sao băng bay liên tục toàn bộ vùng nhìn thấy */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5; /* Nằm giữa viền ghi chú (4) và chữ ghi chú (10) */
+            z-index: 5; /* Sao băng nằm giữa viền (4) và nội dung chữ (10) */
         }
 
-        /* Thân sao băng */
         .shooting-star {
             position: absolute;
             width: 120px;
@@ -175,7 +173,7 @@
             admincheat SetPlayerPos 0.00 0.00 0.00</p>
             <p>CODE TELE ĐIỂM HẸN HÒ❗️<br>
             admincheat SetPlayerPos 12.34 56.78 -9000</p>
-            <p>Ghi chú thêm thông tin của bạn vào đây...</p>
+            <p>Bạn có thể tiếp tục thêm nội dung hoặc nhân bản thêm khung mới tại đây...</p>
         </div>
     </div>
 
@@ -186,7 +184,6 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ ngẫu nhiên phủ kín màn hình
             const startX = Math.random() * (window.innerWidth * 1.6) - (window.innerWidth * 0.2);
             const startY = Math.random() * (window.innerHeight * 0.8) - 120;
             
@@ -203,7 +200,6 @@
             }, duration * 1000);
         }
 
-        // Tần suất xuất hiện dày dặn (400ms tạo 1 sao)
         setInterval(createShootingStar, 400);
     </script>
 
