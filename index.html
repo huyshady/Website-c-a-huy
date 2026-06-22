@@ -105,16 +105,16 @@
             pointer-events: none;
         }
 
-        /* SỬA ĐỔI: Đuôi sao băng bên trái (mờ), đầu bên phải (sáng) và xoay ngược -45 độ */
+        /* 🛠️ ĐÃ SỬA: Đổi sang `to left` để phần đuôi mờ nằm bên trái, đầu sáng đi trước bên phải */
         .shooting-star {
             position: absolute;
             width: 150px;
             height: 2px;
-            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+            background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
             transform: rotate(-45deg); 
             transform-origin: left center;
             opacity: 0;
-            animation: shoot Up right linear forwards;
+            animation: shootUp 1.2s linear forwards;
         }
 
         @keyframes shootUp {
@@ -123,8 +123,8 @@
                 opacity: 1;
             }
             100% {
-                /* Bay tiến về phía trước theo góc chéo lên phải 45 độ */
-                transform: translate(700px, 0) rotate(-45deg);
+                /* Bay tịnh tiến chéo lên góc phải 45 độ xuôi theo chiều vệt sáng */
+                transform: translate(600px, -600px) rotate(-45deg);
                 opacity: 0;
             }
         }
@@ -156,14 +156,14 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // SỬA ĐỔI: Tọa độ xuất phát ngẫu nhiên ở khu vực phía DƯỚI và bên TRÁI màn hình để bay ngược lên
-            const startX = Math.random() * window.innerWidth * 0.6 - 100;
-            const startY = Math.random() * window.innerHeight * 0.6 + (window.innerHeight * 0.4);
+            // Tọa độ xuất phát ngẫu nhiên ở góc dưới và bên trái màn hình để vuốt chéo lên
+            const startX = Math.random() * window.innerWidth * 0.5 - 50;
+            const startY = Math.random() * window.innerHeight * 0.5 + (window.innerHeight * 0.4);
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            const duration = Math.random() * 1.0 + 1.0; 
+            const duration = Math.random() * 0.4 + 0.8; // Tốc độ bay nhanh mượt (0.8s - 1.2s)
             star.style.animationDuration = `${duration}s`;
             
             container.appendChild(star);
@@ -173,7 +173,7 @@
             }, duration * 1000);
         }
 
-        // Giữ nguyên tần suất rơi dày đặc (0.4 giây ra 1 sao) để nhiều sao bay cùng lúc
+        // Tần suất tạo sao băng dày đặc (0.4 giây/sao)
         setInterval(createShootingStar, 400);
 
         function checkKey() {
