@@ -30,9 +30,18 @@ font-size:16px;
 
 <p>Đây là website để huy lưu trữ code</p>
 
-<button onclick="window.location.href='note.html'">
+<button onclick="checkKey()">
 Nhấn vào đây
 </button>
 
-</body>
-</html>
+<script>
+function checkKey() {
+    let key = prompt("Vui lòng nhập key:");
+
+    if (key === "Huydepzai") {
+        window.location.href = "note.html";
+    } else {
+        alert("Key không đúng!");
+    }
+}
+</script>
