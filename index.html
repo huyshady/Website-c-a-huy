@@ -5,29 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Website của Huy</title>
     <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            color: white;
-            /* Nền cầu vồng dải màu mịn và mượt hơn */
+        /* Khung viền Rainbow bao quanh toàn màn hình */
+        html {
+            height: 100vh;
+            padding: 8px; /* Độ dày của viền cầu vồng */
+            box-sizing: border-box;
             background: linear-gradient(
                 45deg, 
                 #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55
             );
-            background-size: 600% 600%;
-            animation: rainbow 20s ease infinite; /* Chậm lại 20s để tạo hiệu ứng mượt mà */
+            background-size: 400% 400%;
+            animation: rainbowBorder 10s ease infinite;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            color: white;
+            /* Nền màu cam tối bí ẩn, sâu thẳm */
+            background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
             
             /* Căn giữa nội dung */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             font-family: sans-serif;
             position: relative;
         }
 
-        @keyframes rainbow {
+        /* Animation cho viền cầu vồng bên ngoài */
+        @keyframes rainbowBorder {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -35,7 +44,7 @@
 
         h1 {
             color: #ffffff;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
             font-size: 2.5rem;
             margin-bottom: 10px;
             z-index: 10;
@@ -43,7 +52,7 @@
 
         p {
             font-size: 1.2rem;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
             z-index: 10;
         }
@@ -51,69 +60,69 @@
         button {
             padding: 12px 24px;
             border: none;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            border-radius: 30px; /* Bo tròn viền dạng viên thuốc hiện đại */
+            border-radius: 30px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            backdrop-filter: blur(10px); /* Hiệu ứng kính mờ cho nút bấm */
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 149, 0, 0.5); /* Viền nút màu cam ánh kim */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
             z-index: 10;
         }
 
         button:hover {
-            background: white;
-            color: #333;
+            background: #ff9500;
+            color: #000;
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+            box-shadow: 0 6px 20px rgba(255, 149, 0, 0.6);
         }
 
-        /* Thống nhất ngôi sao tĩnh */
+        /* Cải tiến: Ngôi sao nhỏ lấp lánh mạnh hơn nhiều */
         .star {
             position: absolute;
             width: 3px;
             height: 3px;
             background: white;
             border-radius: 50%;
-            animation: twinkle 2s infinite alternate;
+            box-shadow: 0 0 6px #fff, 0 0 12px #ff9500; /* Thêm ánh hào quang cam nhẹ */
+            animation: twinkle 1.5s infinite alternate ease-in-out;
         }
 
         @keyframes twinkle {
-            from { opacity: 0.3; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1.5); }
+            0% { opacity: 0.1; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1.8); } /* Tăng độ phóng đại để thấy rõ lấp lánh */
         }
 
-        /* Container chứa sao băng sinh ra ngẫu nhiên */
         #shooting-stars-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Không cản trở việc click nút */
+            pointer-events: none;
         }
 
-        /* CSS mẫu cho sao băng */
+        /* Sửa lại hướng bay sao băng chuẩn: Từ trên phải vút xuống dưới trái */
         .shooting-star {
             position: absolute;
             width: 120px;
             height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
-            transform: rotate(-35deg);
+            background: linear-gradient(-90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+            transform: rotate(-135deg); /* Đổi góc xoay ngược lại */
             opacity: 0;
             animation: shoot linear forwards;
         }
 
         @keyframes shoot {
             0% {
-                transform: translate(0, 0) rotate(-35deg);
+                transform: translate(0, 0) rotate(-135deg);
                 opacity: 1;
             }
             100% {
-                transform: translate(600px, 420px) rotate(-35deg); /* Bay chéo từ góc trên trái xuống dưới phải */
+                transform: translate(-600px, 600px) rotate(-135deg); /* Bay chéo sang trái và đi xuống */
                 opacity: 0;
             }
         }
@@ -121,13 +130,14 @@
 </head>
 <body>
     
-    <div class="star" style="top:15%; left:10%;"></div>
-    <div class="star" style="top:25%; left:75%;"></div>
-    <div class="star" style="top:45%; left:20%;"></div>
-    <div class="star" style="top:65%; left:80%;"></div>
-    <div class="star" style="top:85%; left:45%;"></div>
-    <div class="star" style="top:35%; left:50%;"></div>
-    <div class="star" style="top:75%; left:15%;"></div>
+    <div class="star" style="top:15%; left:10%; animation-delay: 0s;"></div>
+    <div class="star" style="top:25%; left:75%; animation-delay: 0.3s;"></div>
+    <div class="star" style="top:45%; left:20%; animation-delay: 0.7s;"></div>
+    <div class="star" style="top:65%; left:80%; animation-delay: 1.1s;"></div>
+    <div class="star" style="top:85%; left:45%; animation-delay: 0.2s;"></div>
+    <div class="star" style="top:35%; left:50%; animation-delay: 0.9s;"></div>
+    <div class="star" style="top:75%; left:15%; animation-delay: 0.5s;"></div>
+    <div class="star" style="top:10%; left:85%; animation-delay: 1.4s;"></div>
 
     <div id="shooting-stars-container"></div>
 
@@ -137,39 +147,34 @@
     <button onclick="checkKey()">Nhấn vào đây</button>
 
     <script>
-        // TỰ ĐỘNG TẠO SAO BĂNG RƠI LIÊN TỤC VỚI VỊ TRÍ NGẪU NHIÊN
         const container = document.getElementById('shooting-stars-container');
 
         function createShootingStar() {
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Random điểm xuất phát ngẫu nhiên ở phía trên và bên trái màn hình
-            const startX = Math.random() * window.innerWidth * 0.8 - 100;
-            const startY = Math.random() * window.innerHeight * 0.4 - 150;
+            // Tọa độ xuất phát đổi lại: Ngẫu nhiên ở góc phía trên bên PHẢI màn hình
+            const startX = Math.random() * window.innerWidth * 0.5 + (window.innerWidth * 0.4);
+            const startY = Math.random() * window.innerHeight * 0.3 - 50;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Random thời gian bay (từ 1.5 giây đến 3 giây) giúp nhịp rơi tự nhiên hơn
-            const duration = Math.random() * 1.5 + 1.5;
+            const duration = Math.random() * 1.2 + 1.2; // Tốc độ vút nhanh hơn một chút nhìn sẽ thật hơn
             star.style.animationDuration = `${duration}s`;
             
             container.appendChild(star);
             
-            // Xóa sao băng sau khi bay xong để tránh tràn bộ nhớ
             setTimeout(() => {
                 star.remove();
             }, duration * 1000);
         }
 
-        // Cứ mỗi 1.2 giây sẽ tự động thả một ngôi sao băng mới
-        setInterval(createShootingStar, 1200);
+        // Cứ mỗi 1 giây thả 1 sao băng
+        setInterval(createShootingStar, 1000);
 
-        // Giữ nguyên logic checkKey tối ưu của bạn
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
-
             if (key === null) return; 
 
             if (key === "Huydepzai") {
