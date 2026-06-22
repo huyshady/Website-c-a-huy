@@ -155,15 +155,16 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // 🛠️ ĐÃ ĐIỀU CHỈNH: Trải rộng tọa độ để sao băng xuất hiện rải rác toàn màn hình
-            // Cho phép xuất phát từ sát mép trái (0) đến qua mép phải màn hình để khi bay chéo không bị trống góc
-            const startX = Math.random() * (window.innerWidth * 1.3) - (window.innerWidth * 0.1);
-            const startY = Math.random() * (window.innerHeight * 0.4) - 100;
+            // 🛠️ ĐÃ TỐI ƯU TOÀN DIỆN: Phân bổ ngẫu nhiên rộng hơn để bao phủ toàn bộ các góc màn hình
+            // startX mở rộng sang cả vùng ngoài màn hình bên phải để khi bay chéo sẽ quét trọn góc dưới bên phải
+            const startX = Math.random() * (window.innerWidth * 1.6) - (window.innerWidth * 0.2);
+            // startY mở rộng xuống sâu hơn để tạo các điểm xuất phát thấp dọc rìa phải màn hình
+            const startY = Math.random() * (window.innerHeight * 0.8) - 120;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Tăng thời gian bay (2.0s - 3.5s) để chuyển động bay nhẹ nhàng và thơ mộng hơn
+            // Thời gian bay (2.0s - 3.5s) để chuyển động bay nhẹ nhàng và thơ mộng hơn
             const duration = Math.random() * 1.5 + 2.0; 
             star.style.animationDuration = `${duration}s`;
             
@@ -174,7 +175,7 @@
             }, duration * 1000);
         }
 
-        // 🛠️ ĐÃ ĐIỀU CHỈNH: Tần suất xuất hiện dày hơn (400ms tạo 1 sao thay vì 1500ms)
+        // Tần suất xuất hiện dày dặn, mượt mà (400ms tạo 1 sao)
         setInterval(createShootingStar, 400);
 
         function checkKey() {
