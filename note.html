@@ -6,17 +6,10 @@
     <title>Ghi chú</title>
 
     <style>
-        /* Viền cầu vồng nhỏ (4px) và bo tròn các góc đồng bộ */
+        /* Loại bỏ viền ngoài toàn màn hình */
         html {
             height: 100vh;
-            padding: 4px;
             box-sizing: border-box;
-            background: linear-gradient(
-                45deg, 
-                #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55
-            );
-            background-size: 400% 400%;
-            animation: rainbowBorder 10s ease infinite;
         }
 
         body {
@@ -34,7 +27,6 @@
             align-items: center;
             height: 100%;
             position: relative;
-            border-radius: 16px; 
         }
 
         @keyframes rainbowBorder {
@@ -47,20 +39,35 @@
             color: #ffffff;
             text-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
             font-size: 2.5rem;
-            margin-bottom: 10px;
-            z-index: 10;
+            margin-bottom: 20px;
+            z-index: 10; /* Đảm bảo chữ nằm trên sao băng */
         }
 
+        /* Khung ghi chú tích hợp viền cầu vồng chuyển động bên ngoài */
         .note {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 149, 0, 0.3);
             max-width: 800px;
             width: 85%;
-            z-index: 10;
+            position: relative;
+            z-index: 10; /* Giúp toàn bộ hộp ghi chú nằm đè lên sao băng */
+            border-radius: 16px; /* Bo tròn góc */
+            padding: 4px; /* Độ dày của viền cầu vồng (4px) */
+            
+            /* Tạo hiệu ứng nền cầu vồng chuyển động cho viền */
+            background: linear-gradient(
+                45deg, 
+                #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55
+            );
+            background-size: 400% 400%;
+            animation: rainbowBorder 10s ease infinite;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Lớp nền kính mờ bên trong hộp ghi chú để chứa chữ */
+        .note-content {
+            background: rgba(20, 10, 5, 0.85); /* Nền tối để đọc chữ rõ hơn trên nền cam */
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 12px; /* Bo góc trong nhỏ hơn viền ngoài một chút để cân đối */
             color: white;
         }
 
@@ -84,6 +91,7 @@
             pointer-events: none;
             animation: twinkleSnow 1.5s infinite alternate ease-in-out;
             text-shadow: 0 0 5px #fff, 0 0 10px #ff9500;
+            z-index: 1; /* Nằm dưới hộp ghi chú */
         }
 
         @keyframes twinkleSnow {
@@ -91,6 +99,7 @@
             100% { opacity: 1; transform: scale(1.4) rotate(45deg); }
         }
 
+        /* Khung chứa sao băng nằm ở lớp dưới */
         #shooting-stars-container {
             position: absolute;
             top: 0;
@@ -98,6 +107,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 1; /* Đặt lớp dưới (nhỏ hơn z-index: 10 của ghi chú) */
         }
 
         /* Đầu sáng bên trái, đuôi mờ bên phải và góc nghiêng phù hợp */
@@ -141,10 +151,12 @@
     <h1>Ghi chú của tôi</h1>
 
     <div class="note">
-        <h2>Ngày 20/07/2025</h2>
-        <p>Đây là nơi mình ghi lại những điều mình muốn chia sẻ.</p>
-        <p>Bạn có thể viết bao nhiêu đoạn cũng được.</p>
-        <p>Người xem chỉ có thể đọc, không thể chỉnh sửa.</p>
+        <div class="note-content">
+            <h2>Ngày 20/07/2025</h2>
+            <p>Đây là nơi mình ghi lại những điều mình muốn chia sẻ.</p>
+            <p>Bạn có thể viết bao nhiêu đoạn cũng được.</p>
+            <p>Người xem chỉ có thể đọc, không thể chỉnh sửa.</p>
+        </div>
     </div>
 
     <script>
