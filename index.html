@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Website của Huy</title>
     <style>
-        /* Viền cầu vồng nhỏ hơn (4px) và bo tròn các góc */
+        /* Viền cầu vồng nhỏ (4px) và bo tròn các góc */
         html {
             height: 100vh;
-            padding: 4px; /* Viền nhỏ hơn theo ý bạn */
+            padding: 4px;
             box-sizing: border-box;
             background: linear-gradient(
                 45deg, 
@@ -33,8 +33,6 @@
             height: 100%;
             font-family: sans-serif;
             position: relative;
-            
-            /* Bo tròn góc của lớp nền chính khớp với viền */
             border-radius: 16px; 
         }
 
@@ -82,11 +80,11 @@
             box-shadow: 0 6px 20px rgba(255, 149, 0, 0.6);
         }
 
-        /* Biến đổi các ngôi sao nhỏ thành BÔNG TUYẾT lấp lánh */
+        /* Bông tuyết lấp lánh */
         .snowflake {
             position: absolute;
             color: #ffffff;
-            font-size: 10px; /* Kích thước bông tuyết nhỏ xinh */
+            font-size: 10px;
             user-select: none;
             pointer-events: none;
             animation: twinkleSnow 1.5s infinite alternate ease-in-out;
@@ -107,27 +105,26 @@
             pointer-events: none;
         }
 
-        /* Sửa lại vệt sáng chạy dọc chuẩn theo hướng rơi chéo (-135 độ) */
+        /* SỬA ĐỔI: Đuôi sao băng bên trái (mờ), đầu bên phải (sáng) và xoay ngược -45 độ */
         .shooting-star {
             position: absolute;
             width: 150px;
             height: 2px;
-            /* Đuôi mờ ở bên phải, đầu sáng ở bên trái để khi bay chéo vệt sáng đi đúng hướng */
-            background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
-            transform: rotate(-135deg); 
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+            transform: rotate(-45deg); 
             transform-origin: left center;
             opacity: 0;
-            animation: shoot linear forwards;
+            animation: shoot Up right linear forwards;
         }
 
-        @keyframes shoot {
+        @keyframes shootUp {
             0% {
-                transform: translate(0, 0) rotate(-135deg);
+                transform: translate(0, 0) rotate(-45deg);
                 opacity: 1;
             }
             100% {
-                /* Bay chéo từ trên phải vút xuống dưới trái xuôi theo vệt đuôi */
-                transform: translate(-700px, 700px) rotate(-135deg);
+                /* Bay tiến về phía trước theo góc chéo lên phải 45 độ */
+                transform: translate(700px, 0) rotate(-45deg);
                 opacity: 0;
             }
         }
@@ -159,14 +156,13 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Điểm xuất phát ngẫu nhiên dịch về phía trên bên phải màn hình
-            const startX = Math.random() * window.innerWidth * 0.6 + (window.innerWidth * 0.4);
-            const startY = Math.random() * window.innerHeight * 0.4 - 100;
+            // SỬA ĐỔI: Tọa độ xuất phát ngẫu nhiên ở khu vực phía DƯỚI và bên TRÁI màn hình để bay ngược lên
+            const startX = Math.random() * window.innerWidth * 0.6 - 100;
+            const startY = Math.random() * window.innerHeight * 0.6 + (window.innerHeight * 0.4);
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Thời gian bay nhanh tạo độ vút chân thực
             const duration = Math.random() * 1.0 + 1.0; 
             star.style.animationDuration = `${duration}s`;
             
@@ -177,7 +173,7 @@
             }, duration * 1000);
         }
 
-        // Thay đổi thời gian lặp xuống 400ms (0.4 giây) để nhiều sao băng xuất hiện và rơi cùng lúc
+        // Giữ nguyên tần suất rơi dày đặc (0.4 giây ra 1 sao) để nhiều sao bay cùng lúc
         setInterval(createShootingStar, 400);
 
         function checkKey() {
