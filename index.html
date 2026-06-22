@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Website của Huy</title>
     <style>
-        /* Khung viền Rainbow bao quanh toàn màn hình */
+        /* Viền cầu vồng nhỏ hơn (4px) và bo tròn các góc */
         html {
             height: 100vh;
-            padding: 8px; /* Độ dày của viền cầu vồng */
+            padding: 4px; /* Viền nhỏ hơn theo ý bạn */
             box-sizing: border-box;
             background: linear-gradient(
                 45deg, 
@@ -22,7 +22,7 @@
             margin: 0;
             overflow: hidden;
             color: white;
-            /* Nền màu cam tối bí ẩn, sâu thẳm */
+            /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
             
             /* Căn giữa nội dung */
@@ -33,9 +33,11 @@
             height: 100%;
             font-family: sans-serif;
             position: relative;
+            
+            /* Bo tròn góc của lớp nền chính khớp với viền */
+            border-radius: 16px; 
         }
 
-        /* Animation cho viền cầu vồng bên ngoài */
         @keyframes rainbowBorder {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -67,7 +69,7 @@
             font-weight: bold;
             cursor: pointer;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 149, 0, 0.5); /* Viền nút màu cam ánh kim */
+            border: 1px solid rgba(255, 149, 0, 0.5);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
             z-index: 10;
@@ -80,20 +82,20 @@
             box-shadow: 0 6px 20px rgba(255, 149, 0, 0.6);
         }
 
-        /* Cải tiến: Ngôi sao nhỏ lấp lánh mạnh hơn nhiều */
-        .star {
+        /* Biến đổi các ngôi sao nhỏ thành BÔNG TUYẾT lấp lánh */
+        .snowflake {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 6px #fff, 0 0 12px #ff9500; /* Thêm ánh hào quang cam nhẹ */
-            animation: twinkle 1.5s infinite alternate ease-in-out;
+            color: #ffffff;
+            font-size: 10px; /* Kích thước bông tuyết nhỏ xinh */
+            user-select: none;
+            pointer-events: none;
+            animation: twinkleSnow 1.5s infinite alternate ease-in-out;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff9500;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.1; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1.8); } /* Tăng độ phóng đại để thấy rõ lấp lánh */
+        @keyframes twinkleSnow {
+            0% { opacity: 0.2; transform: scale(0.6) rotate(0deg); }
+            100% { opacity: 1; transform: scale(1.4) rotate(45deg); }
         }
 
         #shooting-stars-container {
@@ -105,13 +107,15 @@
             pointer-events: none;
         }
 
-        /* Sửa lại hướng bay sao băng chuẩn: Từ trên phải vút xuống dưới trái */
+        /* Sửa lại vệt sáng chạy dọc chuẩn theo hướng rơi chéo (-135 độ) */
         .shooting-star {
             position: absolute;
-            width: 120px;
+            width: 150px;
             height: 2px;
-            background: linear-gradient(-90deg, rgba(255,255,255,1), rgba(255,255,255,0));
-            transform: rotate(-135deg); /* Đổi góc xoay ngược lại */
+            /* Đuôi mờ ở bên phải, đầu sáng ở bên trái để khi bay chéo vệt sáng đi đúng hướng */
+            background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
+            transform: rotate(-135deg); 
+            transform-origin: left center;
             opacity: 0;
             animation: shoot linear forwards;
         }
@@ -122,7 +126,8 @@
                 opacity: 1;
             }
             100% {
-                transform: translate(-600px, 600px) rotate(-135deg); /* Bay chéo sang trái và đi xuống */
+                /* Bay chéo từ trên phải vút xuống dưới trái xuôi theo vệt đuôi */
+                transform: translate(-700px, 700px) rotate(-135deg);
                 opacity: 0;
             }
         }
@@ -130,14 +135,15 @@
 </head>
 <body>
     
-    <div class="star" style="top:15%; left:10%; animation-delay: 0s;"></div>
-    <div class="star" style="top:25%; left:75%; animation-delay: 0.3s;"></div>
-    <div class="star" style="top:45%; left:20%; animation-delay: 0.7s;"></div>
-    <div class="star" style="top:65%; left:80%; animation-delay: 1.1s;"></div>
-    <div class="star" style="top:85%; left:45%; animation-delay: 0.2s;"></div>
-    <div class="star" style="top:35%; left:50%; animation-delay: 0.9s;"></div>
-    <div class="star" style="top:75%; left:15%; animation-delay: 0.5s;"></div>
-    <div class="star" style="top:10%; left:85%; animation-delay: 1.4s;"></div>
+    <div class="snowflake" style="top:15%; left:10%; animation-delay: 0s;">❄</div>
+    <div class="snowflake" style="top:25%; left:75%; animation-delay: 0.3s;">❄</div>
+    <div class="snowflake" style="top:45%; left:20%; animation-delay: 0.7s;">❄</div>
+    <div class="snowflake" style="top:65%; left:85%; animation-delay: 1.1s;">❄</div>
+    <div class="snowflake" style="top:85%; left:40%; animation-delay: 0.2s;">❄</div>
+    <div class="snowflake" style="top:35%; left:55%; animation-delay: 0.9s;">❄</div>
+    <div class="snowflake" style="top:75%; left:15%; animation-delay: 0.5s;">❄</div>
+    <div class="snowflake" style="top:10%; left:90%; animation-delay: 1.4s;">❄</div>
+    <div class="snowflake" style="top:50%; left:70%; animation-delay: 0.6s;">❄</div>
 
     <div id="shooting-stars-container"></div>
 
@@ -153,14 +159,15 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ xuất phát đổi lại: Ngẫu nhiên ở góc phía trên bên PHẢI màn hình
-            const startX = Math.random() * window.innerWidth * 0.5 + (window.innerWidth * 0.4);
-            const startY = Math.random() * window.innerHeight * 0.3 - 50;
+            // Điểm xuất phát ngẫu nhiên dịch về phía trên bên phải màn hình
+            const startX = Math.random() * window.innerWidth * 0.6 + (window.innerWidth * 0.4);
+            const startY = Math.random() * window.innerHeight * 0.4 - 100;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            const duration = Math.random() * 1.2 + 1.2; // Tốc độ vút nhanh hơn một chút nhìn sẽ thật hơn
+            // Thời gian bay nhanh tạo độ vút chân thực
+            const duration = Math.random() * 1.0 + 1.0; 
             star.style.animationDuration = `${duration}s`;
             
             container.appendChild(star);
@@ -170,8 +177,8 @@
             }, duration * 1000);
         }
 
-        // Cứ mỗi 1 giây thả 1 sao băng
-        setInterval(createShootingStar, 1000);
+        // Thay đổi thời gian lặp xuống 400ms (0.4 giây) để nhiều sao băng xuất hiện và rơi cùng lúc
+        setInterval(createShootingStar, 400);
 
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
