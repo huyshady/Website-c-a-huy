@@ -22,7 +22,10 @@
             margin: 0;
             overflow: hidden;
             color: white;
+            /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
+            
+            /* Căn giữa nội dung văn bản và nút bấm */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -102,34 +105,26 @@
             pointer-events: none;
         }
 
-        /* 🛠️ TỐI ƯU MỀM MẠI: Đầu nhọn sáng nằm bên TRÁI dải màu, đuôi mờ vuốt dần sang PHẢI */
+        /* 🛠️ FIX TRIỆT ĐỂ LỖI NẰM NGANG:
+           Đổi dải màu thành `to left` và đặt góc xoay cố định -45 độ ở cả trạng thái tĩnh lẫn chuyển động */
         .shooting-star {
             position: absolute;
             width: 120px;
             height: 2px;
-            background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.4) 30%, rgba(255,255,255,0) 100%);
-            border-radius: 100%; /* Giúp vệt sáng mịn màng hơn */
-            filter: drop-shadow(0 0 4px rgba(255,255,255,0.8)); /* Tạo độ nhòe lấp lánh tự nhiên */
+            background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
+            transform: rotate(-135deg); /* Góc chéo hướng từ trên phải xuống dưới trái */
             opacity: 0;
-            transform: rotate(-135deg); /* Đặt góc hướng xiên từ trên phải xuống dưới trái */
-            transform-origin: left center;
-            animation: smoothShoot linear forwards;
+            animation: shootDownLeft linear forwards;
         }
 
-        @keyframes smoothShoot {
+        @keyframes shootDownLeft {
             0% {
-                transform: translateX(0) rotate(-135deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1; /* Hiện hình mượt mà không bị giật bộp một cái */
-            }
-            90% {
+                transform: translateX(0) translateY(0) rotate(-135deg);
                 opacity: 1;
             }
             100% {
-                /* Bay tịnh tiến lao về phía trước trục tọa độ đã xoay */
-                transform: translateX(800px) rotate(-135deg);
+                /* Ép tịnh tiến chéo hẳn xuống dưới bên trái */
+                transform: translateX(-800px) translateY(800px) rotate(-135deg);
                 opacity: 0;
             }
         }
@@ -161,15 +156,15 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ gốc xuất phát: rải rác khu vực phía trên và lấn hẳn sang mép phải màn hình
-            const startX = Math.random() * (window.innerWidth * 0.7) + (window.innerWidth * 0.3);
-            const startY = Math.random() * (window.innerHeight * 0.4) - 50;
+            // Tọa độ xuất phát rải rác đều từ vùng phía trên và bên phải màn hình [cite: 140]
+            const startX = Math.random() * (window.innerWidth * 1.2) - (window.innerWidth * 0.2);
+            const startY = Math.random() * (window.innerHeight * 0.4) - 100;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Nhẹ nhàng thơ mộng với thời gian bay ngẫu nhiên (1.2s - 2.2s)
-            const duration = Math.random() * 1.0 + 1.2; 
+            // Giữ chuyển động nhẹ nhàng thơ mộng (từ 2s - 3s) [cite: 139]
+            const duration = Math.random() * 1.0 + 2.0; 
             star.style.animationDuration = `${duration}s`;
             
             container.appendChild(star);
@@ -179,8 +174,9 @@
             }, duration * 1000);
         }
 
-        // Tần suất xuất hiện dày đặc rải rác: 0.15 giây tạo một ngôi sao mới
-        setInterval(createShootingStar, 150);
+        // 🛠️ TĂNG TẦN XUẤT: Giảm từ 500ms xuống còn 200ms (0.2 giây tạo ra 1 sao mới)
+        // Giúp sao băng xuất hiện dồn dập, liên tục và rải rác khắp màn hình.
+        setInterval(createShootingStar, 200);
 
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
