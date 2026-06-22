@@ -105,7 +105,7 @@
             pointer-events: none;
         }
 
-        /* 🛠️ ĐIỀU CHỈNH: Đầu sáng bên trái, đuôi mờ bên phải và góc nghiêng phù hợp */
+        /* Đầu sáng bên trái, đuôi mờ bên phải và góc nghiêng phù hợp */
         .shooting-star {
             position: absolute;
             width: 120px;
@@ -122,7 +122,7 @@
                 opacity: 1;
             }
             100% {
-                /* 🛠️ ĐIỀU CHỈNH: Tiến về âm X (sang trái) và dương Y (xuống dưới) -> Bay từ trên phải xuống dưới trái */
+                /* Tiến về âm X (sang trái) và dương Y (xuống dưới) -> Bay từ trên phải xuống dưới trái */
                 transform: translate(-800px, 800px) rotate(-45deg);
                 opacity: 0;
             }
@@ -155,15 +155,15 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // 🛠️ TỐI ƯU: Trải rộng tọa độ xuất phát ngẫu nhiên ở vùng trên và vùng bên phải màn hình
-            // Giúp sao băng phân bổ rải rác đều khắp màn hình, không bị tụ lại một chỗ
-            const startX = Math.random() * (window.innerWidth * 0.9) + (window.innerWidth * 0.2);
-            const startY = Math.random() * (window.innerHeight * 0.5) - 120;
+            // 🛠️ ĐÃ ĐIỀU CHỈNH: Trải rộng tọa độ để sao băng xuất hiện rải rác toàn màn hình
+            // Cho phép xuất phát từ sát mép trái (0) đến qua mép phải màn hình để khi bay chéo không bị trống góc
+            const startX = Math.random() * (window.innerWidth * 1.3) - (window.innerWidth * 0.1);
+            const startY = Math.random() * (window.innerHeight * 0.4) - 100;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // 🛠️ TỐI ƯU: Tăng thời gian bay (2.0s - 3.5s) để chuyển động bay nhẹ nhàng và thơ mộng hơn
+            // Tăng thời gian bay (2.0s - 3.5s) để chuyển động bay nhẹ nhàng và thơ mộng hơn
             const duration = Math.random() * 1.5 + 2.0; 
             star.style.animationDuration = `${duration}s`;
             
@@ -174,8 +174,8 @@
             }, duration * 1000);
         }
 
-        // Tần suất xuất hiện đồng thời nhiều sao rải rác (khoảng 0.5 giây tạo 1 sao)
-        setInterval(createShootingStar, 1500);
+        // 🛠️ ĐÃ ĐIỀU CHỈNH: Tần suất xuất hiện dày hơn (400ms tạo 1 sao thay vì 1500ms)
+        setInterval(createShootingStar, 400);
 
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
