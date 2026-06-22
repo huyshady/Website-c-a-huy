@@ -22,10 +22,7 @@
             margin: 0;
             overflow: hidden;
             color: white;
-            /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
-            
-            /* Căn giữa nội dung văn bản và nút bấm */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -105,26 +102,26 @@
             pointer-events: none;
         }
 
-        /* 🛠️ FIX TRIỆT ĐỂ LỖI NẰM NGANG:
-           Đổi dải màu thành `to left` và đặt góc xoay cố định -45 độ ở cả trạng thái tĩnh lẫn chuyển động */
+        /* SỬA CHUẨN: Đầu sáng (bên phải), đuôi mờ (bên trái) vuốt chéo nghiêng 135 độ */
         .shooting-star {
             position: absolute;
             width: 120px;
             height: 2px;
             background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1));
-            transform: rotate(-135deg); /* Góc chéo hướng từ trên phải xuống dưới trái */
+            transform: rotate(135deg); 
+            transform-origin: right center; /* Tâm quay đặt ở đầu ngôi sao */
             opacity: 0;
-            animation: shootDownLeft linear forwards;
+            animation: shootCorrect linear forwards;
         }
 
-        @keyframes shootDownLeft {
+        @keyframes shootCorrect {
             0% {
-                transform: translateX(0) translateY(0) rotate(-135deg);
+                transform: translateX(0) rotate(135deg);
                 opacity: 1;
             }
             100% {
-                /* Ép tịnh tiến chéo hẳn xuống dưới bên trái */
-                transform: translateX(-800px) translateY(800px) rotate(-135deg);
+                /* Chỉ tịnh tiến theo trục X sau khi đã xoay, sao sẽ lao chéo thẳng tắp */
+                transform: translateX(-1000px) rotate(135deg);
                 opacity: 0;
             }
         }
@@ -156,15 +153,15 @@
             const star = document.createElement('div');
             star.classList.add('shooting-star');
             
-            // Tọa độ xuất phát rải rác đều từ vùng phía trên và bên phải màn hình [cite: 140]
-            const startX = Math.random() * (window.innerWidth * 1.2) - (window.innerWidth * 0.2);
-            const startY = Math.random() * (window.innerHeight * 0.4) - 100;
+            // Tọa độ xuất phát: Tập trung nửa trên bên phải màn hình để bay chéo xuống góc dưới bên trái
+            const startX = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.3);
+            const startY = Math.random() * (window.innerHeight * 0.4) - 50;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Giữ chuyển động nhẹ nhàng thơ mộng (từ 2s - 3s) [cite: 139]
-            const duration = Math.random() * 1.0 + 2.0; 
+            // Thời gian bay nhẹ nhàng thơ mộng (1.5s - 2.5s)
+            const duration = Math.random() * 1.0 + 1.5; 
             star.style.animationDuration = `${duration}s`;
             
             container.appendChild(star);
@@ -174,9 +171,8 @@
             }, duration * 1000);
         }
 
-        // 🛠️ TĂNG TẦN XUẤT: Giảm từ 500ms xuống còn 200ms (0.2 giây tạo ra 1 sao mới)
-        // Giúp sao băng xuất hiện dồn dập, liên tục và rải rác khắp màn hình.
-        setInterval(createShootingStar, 200);
+        // Tần suất xuất hiện cực kì dày đặc (mỗi 0.15 giây tạo 1 sao mới)
+        setInterval(createShootingStar, 150);
 
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
