@@ -7,24 +7,27 @@
 
     <style>
         html {
-            height: 100vh;
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            overflow: hidden;
+            padding: 40px 20px; /* Thêm khoảng cách đệm trên dưới khi cuộn */
+            overflow-x: hidden;
+            overflow-y: auto; /* Cho phép cuộn trang khi có nhiều khung ghi chú */
             color: white;
             /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
+            background-attachment: fixed; /* Giữ cố định nền khi cuộn */
             
-            /* Căn giữa nội dung ghi chú */
+            /* Căn giữa và xếp dọc các khung ghi chú */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            height: 100%;
+            min-height: 100vh;
             position: relative;
         }
 
@@ -38,24 +41,28 @@
             color: #ffffff;
             text-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
             font-size: 2.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             z-index: 10; /* Chữ tiêu đề nằm trên cùng */
         }
 
-        /* Khung ghi chú (Lớp viền cầu vồng nằm dưới sao băng) */
+        /* Khung ghi chú với ĐƯỜNG VIỀN 7 MÀU sắc nét chạy dọc xung quanh */
         .note {
             max-width: 800px;
             width: 85%;
             position: relative;
             z-index: 4; /* Nằm dưới sao băng (z-index: 5) */
             border-radius: 16px; 
-            padding: 4px; /* Độ dày của viền cầu vồng */
+            margin-bottom: 30px; /* Khoảng cách giữa khung 1 và khung 2 */
             
-            background: linear-gradient(
-                45deg, 
-                #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55
-            );
-            background-size: 400% 400%;
+            /* Tạo đường viền 7 màu mảnh và sắc nét chạy dọc theo khung */
+            border: 4px solid transparent;
+            background-image: 
+                linear-gradient(rgba(20, 10, 5, 0.88), rgba(20, 10, 5, 0.88)), 
+                linear-gradient(45deg, #ff3b30, #ff9500, #ffcc00, #4cd964, #5ac8fa, #007aff, #5856d6, #ff2d55);
+            background-clip: padding-box, border-box;
+            background-origin: padding-box, border-box;
+            background-size: 100% 100%, 400% 400%;
+            
             animation: rainbowBorder 10s ease infinite;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
@@ -63,9 +70,7 @@
         /* Lớp nội dung chứa chữ (Nằm TRÊN CÙNG để đè lên sao băng) */
         .note-content {
             position: relative;
-            z-index: 10; /* Cao nhất, đè lên sao băng (z-index: 5) để chữ không bị che khuất */
-            background: rgba(20, 10, 5, 0.88); /* Nền tối mịn màng giúp đọc chữ rất rõ */
-            backdrop-filter: blur(15px);
+            z-index: 10; /* Cao nhất, đè lên sao băng để chữ không bị che khuất */
             padding: 20px;
             border-radius: 12px; 
             color: white;
@@ -74,6 +79,8 @@
         .note h2 {
             color: #ff9500;
             margin-top: 0;
+            border-bottom: 1px solid rgba(255, 149, 0, 0.2);
+            padding-bottom: 8px;
         }
 
         .note p {
@@ -84,7 +91,7 @@
 
         /* Bông tuyết lấp lánh nền */
         .snowflake {
-            position: absolute;
+            position: fixed; /* Đổi thành fixed để bông tuyết đứng yên ở nền khi cuộn trang */
             color: #ffffff;
             font-size: 10px;
             user-select: none;
@@ -101,7 +108,7 @@
 
         /* Khung chứa sao băng nằm ở lớp giữa */
         #shooting-stars-container {
-            position: absolute;
+            position: fixed; /* Đổi thành fixed để sao băng bay liên tục toàn bộ vùng nhìn thấy */
             top: 0;
             left: 0;
             width: 100%;
@@ -153,11 +160,22 @@
     <div class="note">
         <div class="note-content">
             <h2>CODE TELE CƠ BẢN</h2>
-            <p>CODE TELE TRỤ ĐỎ❗️
+            <p>CODE TELE TRỤ ĐỎ❗️<br>
             admincheat SetPlayerPos 79.75 17.99 -11000</p>
-            <p>CODE TELE TRỤ XANH❗️
+            <p>CODE TELE TRỤ XANH❗️<br>
             admincheat SetPlayerPos 58.70 70.13 -10000</p>
             <p>CODE TELE TRỤ TRẮNG❗️</p>
+        </div>
+    </div>
+
+    <div class="note">
+        <div class="note-content">
+            <h2>CODE TELE NÂNG CAO</h2>
+            <p>CODE TELE VÙNG AN TOÀN❗️<br>
+            admincheat SetPlayerPos 0.00 0.00 0.00</p>
+            <p>CODE TELE ĐIỂM HẸN HÒ❗️<br>
+            admincheat SetPlayerPos 12.34 56.78 -9000</p>
+            <p>Ghi chú thêm thông tin của bạn vào đây...</p>
         </div>
     </div>
 
