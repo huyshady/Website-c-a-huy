@@ -122,7 +122,6 @@
                 opacity: 1;
             }
             100% {
-                /* Tiến về âm X (sang trái) và dương Y (xuống dưới) -> Bay từ trên phải xuống dưới trái */
                 transform: translate(-800px, 800px) rotate(-45deg);
                 opacity: 0;
             }
@@ -154,17 +153,12 @@
         function createShootingStar() {
             const star = document.createElement('div');
             star.classList.add('shooting-star');
-            
-            // 🛠️ ĐÃ TỐI ƯU TOÀN DIỆN: Phân bổ ngẫu nhiên rộng hơn để bao phủ toàn bộ các góc màn hình
-            // startX mở rộng sang cả vùng ngoài màn hình bên phải để khi bay chéo sẽ quét trọn góc dưới bên phải
             const startX = Math.random() * (window.innerWidth * 1.6) - (window.innerWidth * 0.2);
-            // startY mở rộng xuống sâu hơn để tạo các điểm xuất phát thấp dọc rìa phải màn hình
             const startY = Math.random() * (window.innerHeight * 0.8) - 120;
             
             star.style.left = `${startX}px`;
             star.style.top = `${startY}px`;
             
-            // Thời gian bay (2.0s - 3.5s) để chuyển động bay nhẹ nhàng và thơ mộng hơn
             const duration = Math.random() * 1.5 + 2.0; 
             star.style.animationDuration = `${duration}s`;
             
@@ -175,15 +169,32 @@
             }, duration * 1000);
         }
 
-        // Tần suất xuất hiện dày dặn, mượt mà (400ms tạo 1 sao)
         setInterval(createShootingStar, 400);
+
+        // --- CẤU HÌNH BẢO MẬT ĐỘC QUYỀN CHO HUY ---
+        const MASTER_ACTIVATE_CODE = "HuyChuNhan123"; // Mã kích hoạt thiết bị của riêng bạn (Có thể đổi tùy ý)
+        const DEVICE_TOKEN_NAME = "Huy_Verified_Device_999";
 
         function checkKey() {
             let key = prompt("Vui lòng nhập key:");
             if (key === null) return; 
 
+            // Nếu nhập trúng Mã kích hoạt thiết bị bí mật
+            if (key === MASTER_ACTIVATE_CODE) {
+                localStorage.setItem('device_identity', DEVICE_TOKEN_NAME);
+                alert("Đã xác thực thiết bị chính chủ thành công! Hãy bấm lại nút và nhập key Huydepzai.");
+                return;
+            }
+
+            // Logic kiểm tra Key chính thức
             if (key === "Huydepzai") {
-                window.location.href = "note.html";
+                // Kiểm tra xem trình duyệt hiện tại có chứa Token chính chủ không
+                if (localStorage.getItem('device_identity') === DEVICE_TOKEN_NAME) {
+                    window.location.href = "note.html";
+                } else {
+                    // Nếu người khác biết key "Huydepzai" nhưng máy họ không có token
+                    alert("Key chính xác nhưng thiết bị của bạn không được cấp quyền sử dụng Key này!");
+                }
             } else {
                 alert("Key không đúng!");
             }
