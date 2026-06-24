@@ -16,9 +16,8 @@
             margin: 0;
             padding: 40px 20px;
             overflow-x: hidden;
-            overflow-y: auto; /* Cho phép cuộn trang mượt mà khi có nhiều khung */
+            overflow-y: auto; 
             color: white;
-            /* Nền màu cam tối huyền bí */
             background: radial-gradient(circle at center, #2c1605 0%, #0f0701 100%);
             background-attachment: fixed;
             
@@ -40,20 +39,58 @@
             color: #ffffff;
             text-shadow: 0 4px 15px rgba(255, 149, 0, 0.4);
             font-size: 2.5rem;
-            margin-bottom: 35px;
+            margin-bottom: 20px;
             z-index: 10;
         }
 
-        /* Từng khung ghi chú riêng biệt với viền 7 màu sắc nét ôm sát dọc theo hộp */
+        /* Nút đăng xuất hệ thống */
+        .logout-btn {
+            padding: 8px 16px;
+            border: none;
+            background: rgba(255, 59, 48, 0.2);
+            color: #ff3b30;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 59, 48, 0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+
+        .logout-btn:hover {
+            background: #ff3b30;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 59, 48, 0.6);
+        }
+
+        /* NÚT THAY ĐỔI KẾT QUẢ BÍ MẬT: Nhỏ, trong suốt, tiệp màu tiêu đề */
+        .cheat-btn {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.15);
+            border: none;
+            cursor: pointer;
+            font-size: 11px;
+            z-index: 12;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .cheat-btn:hover {
+            color: #ff9500; /* Chỉ khi rà chuột vào mới thấy rõ */
+        }
+
         .note {
             max-width: 800px;
             width: 85%;
             position: relative;
-            z-index: 4; /* Thấp hơn sao băng một chút để hiệu ứng cắt qua viền */
+            z-index: 4; 
             border-radius: 16px; 
-            margin-bottom: 35px; /* Tạo khoảng cách tách biệt hoàn toàn giữa các khung */
+            margin-bottom: 35px; 
             
-            /* Tạo đường viền mảnh 7 màu tinh tế bao quanh */
             border: 4px solid transparent;
             background-image: 
                 linear-gradient(rgba(20, 10, 5, 0.88), rgba(20, 10, 5, 0.88)), 
@@ -66,10 +103,9 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
 
-        /* Lớp chứa chữ nằm trên cùng để sao băng không đè lên chữ */
         .note-content {
             position: relative;
-            z-index: 10; /* Lớp cao nhất, nằm đè lên sao băng (z-index: 5) */
+            z-index: 10; 
             padding: 20px;
             border-radius: 12px; 
             color: white;
@@ -88,7 +124,6 @@
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* Hiệu ứng tuyết rơi lấp lánh ở nền */
         .snowflake {
             position: fixed;
             color: #ffffff;
@@ -105,7 +140,6 @@
             100% { opacity: 1; transform: scale(1.4) rotate(45deg); }
         }
 
-        /* Lớp chứa sao băng ở giữa viền và chữ */
         #shooting-stars-container {
             position: fixed;
             top: 0;
@@ -113,7 +147,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5; /* Sao băng nằm giữa viền (4) và nội dung chữ (10) */
+            z-index: 5; 
         }
 
         .shooting-star {
@@ -155,6 +189,10 @@
 
     <h1>👑CODE ARK 1👑</h1>
 
+    <button class="cheat-btn" onclick="setupWheelTarget()">⚙ Cấu hình hệ thống</button>
+
+    <button class="logout-btn" onclick="handleLogout()">Đăng xuất hệ thống</button>
+
     <div class="note">
         <div class="note-content">
             <h2>CODE TELE CƠ BẢN</h2>
@@ -163,7 +201,7 @@
             <p>CODE TELE TRỤ XANH❗️<br>
             admincheat SetPlayerPos 58.70 70.13 -10000</p>
             <p>CODE TELE TRỤ TRẮNG❗️</p>
-            <p>CODE TELE NÚI LỬA❗️
+            <p>CODE TELE NÚI LỬA❗️<br>
            admincheat SetPlayerPos 42.27 38.52 40000 </p>
         </div>
     </div>
@@ -175,16 +213,24 @@
             admincheat SetPlayerPos 24.15 29.43 -14000</p>
             <p>CODE TELE DƯỚI NÚI LỬA❗️<br>
             admincheat SetPlayerPos 42.27 38.52 -14300</p>
-            <p>CODE TELE ĐẢO CỎ❗️
+            <p>CODE TELE ĐẢO CỎ❗️<br>
            admincheat SetPlayerPos 84.14 81.97 -13500 </p>
         </div>
     </div>
 
     <div class="note">
         <div class="note-content">
-            <h2>CODE XOÁ DUNGEO</h2>
-            <p></p>
+            <h2>CODE XOÁ DUNGEON</h2>
+            <p>Nội dung lệnh xóa Dungeon sẽ được cập nhật ở đây...</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
     <script>
+        // --- HIỆU ỨNG SAO BĂNG ---
         const container = document.getElementById('shooting-stars-container');
 
         function createShootingStar() {
@@ -208,6 +254,58 @@
         }
 
         setInterval(createShootingStar, 400);
+
+
+        // --- CẤU HÌNH FIREBASE CỦA HUY ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7veYYQmj98jxeAGpjXWSLDkyYbeAtkjA",
+            authDomain: "web-huy.firebaseapp.com",
+            projectId: "web-huy",
+            storageBucket: "web-huy.firebasestorage.app",
+            messagingSenderId: "85036345936",
+            appId: "1:85036345936:web:cb37629df2d02040247f55"
+        };
+
+        // Khởi tạo Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database(); // Khởi tạo database
+
+        // KIỂM TRA TRẠNG THÁI ĐĂNG NHẬP
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = "index.html";
+            }
+        });
+
+        // HÀM CÀI ĐẶT KẾT QUẢ VÒNG QUAY BÍ MẬT
+        function setupWheelTarget() {
+            const input = prompt("Nhập số thứ tự ô trúng (0 là ô đầu tiên, 1 là ô thứ hai,...) hoặc gõ 'random' để quay tự nhiên:");
+            if (input === null) return; // Người dùng ấn hủy
+            
+            if (input.trim().toLowerCase() === 'random') {
+                database.ref('wheel_config/target').set(-1)
+                .then(() => alert("Đã chuyển về chế độ ngẫu nhiên tự nhiên!"));
+            } else {
+                const targetIndex = parseInt(input);
+                if (!isNaN(targetIndex) && targetIndex >= 0) {
+                    database.ref('wheel_config/target').set(targetIndex)
+                    .then(() => alert(`Đã cài đặt ép trúng ô số: ${targetIndex}`));
+                } else {
+                    alert("Giá trị nhập vào không hợp lệ!");
+                }
+            }
+        }
+
+        // Hàm xử lý khi ấn nút Đăng xuất
+        function handleLogout() {
+            auth.signOut().then(() => {
+                alert("Đã đăng xuất tài khoản!");
+                window.location.href = "index.html";
+            }).catch((error) => {
+                alert("Lỗi khi đăng xuất!");
+            });
+        }
     </script>
 
 </body>
